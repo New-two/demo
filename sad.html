@@ -19,9 +19,9 @@
         function orientationHandler(event) {
             text = ""
             var arrow = document.getElementById("arrow");
-            text += "左右旋转：rotate alpha{" + event.alpha + "deg)<p>";
-            text += "前后旋转：rotate beta{" + event.beta + "deg)<p>";
-            text += "扭转设备：rotate gamma{" + event.gamma + "deg)<p>";
+            text += "左右旋转：rotate alpha{" + Math.round(event.alpha) + "deg)<p>";
+            text += "前后旋转：rotate beta{" + Math.round(event.beta) + "deg)<p>";
+            text += "扭转设备：rotate gamma{" + Math.round(event.gamma) + "deg)<p>";
             arrow.innerHTML = text;
         }
     }
