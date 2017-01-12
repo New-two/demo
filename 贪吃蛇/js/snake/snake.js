@@ -731,10 +731,10 @@ window.addEventListener("deviceorientation",orientationHandler , false);
             case 180: move_start();
 				co = co!=37 ? 39 : co;
             break;//右 
-            case 360: move_start();
+            case 270: move_start();
             	co = co!=40 ? 38 : co;
             break;//下 
-            case 270 : move_start();
+            case 360 : move_start();
 				co = co!=38 ? 40 : co;
             break;//左 
         }
