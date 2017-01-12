@@ -724,11 +724,11 @@ window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
         switch(data){ 
-            case 180: move_start();
+            case 90: move_start();
 				co = co!=39 ? 37 : co;
             break;//上 
 
-            case 90: move_start();
+            case 180: move_start();
 				co = co!=37 ? 39 : co;
             break;//右 
             case 360: move_start();
