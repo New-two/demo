@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,user-scalable=no,maximum-scale=1,initial-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="description" content="h5 贪吃蛇游戏 HTML5贪吃蛇游戏"/>  
+<meta name="keywords" content="h5 贪吃蛇游戏 HTML5贪吃蛇游戏"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>H5 贪吃蛇游戏 HTML5贪吃蛇游戏</title>
+<script type="text/javascript" src="./js/jquery.min.js?v=v1023"></script>
+<style type="text/css">
+body{
+	margin:0;
+}
+</style>
+<script type="text/javascript">
+	//rem单位转换
+	(function(doc, win) {
+		var docEl = doc.documentElement, resizeEvt = 'orientationchange' in window ? 'orientationchange'
+				: 'resize', recalc = function() {
+			var clientWidth = docEl.clientWidth;
+			if (!clientWidth)
+				return;
+			docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+		};
+		if (!doc.addEventListener)
+			return;
+		win.addEventListener(resizeEvt, recalc, false);
+		doc.addEventListener('DOMContentLoaded', recalc, false);
+	})(document, window);
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b381a347cf2bfe3a7c13902d476b0c5a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+	<link rel="stylesheet" href="./css/game_base.css?v=v1023" />
+<style>
+body{
+	overflow: hidden;
+	margin: 0 !important;
+	background: url(./image/background.jpg) no-repeat;
+	background-size: cover;
+}
+#game-box,#game-box>div{
+	overflow: hidden !important;
+}
+#game-box_canvas{
+	background: url(./image/box.png) no-repeat center;
+	background-size: 95%;
+}
+
+#game-box_canvas{
+	margin-top: 4rem !important;
+	background-size: 89%;
+}
+
+#gameGuide{
+	z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.7);
+}
+
+#gameGuide img{
+    position: absolute;
+    top: 8rem;
+    left: 50%;
+    width: 12rem;
+    margin-left: -6rem;
+}
+</style>
+
+<div id="gameContainer">
+	<!-- 	时间分数模板 -->
+	<div id="gameTopInfo">
+		<div class="headerWrap">
+			<div class="headerborder"><img src=""></div>
+			<strong id="totalScore">0</strong>
+		</div>
+		<div class="music">
+			<img class="onImg" src="./image/musicOn.png">
+			<img class="offImg" src="./image/musicOff.png">
+		</div>
+		<div class="bottomColor"></div>
+	</div>
+	
+	<!-- 	游戏主要部分 -->
+	<div id="game-box"></div>
+	<audio id="backgroundMusic" loop="loop"></audio>
+	
+	<!-- 引导 -->
+	<div id="gameGuide"><img src="./image/guide.png">	</div>
+		
+		
+</div>
+<script type="text/javascript" src="./js/lufylegend-1.10.1.min.js?v=v1023"></script>
+<script type="text/javascript" src="./js/snake/zepto.js?v=v1023"></script>
+<script type="text/javascript" src="./js/jquery.cookie.min.js?v=v1023"></script>
+<script type="text/javascript" src="./js/snake/touch-0.2.14.min.js?v=v1023"></script>
+
+<script type="text/javascript">
+var basepath='./image/';
+
+/*********************************对外提供的方法**************************************/
+
+window.gamepage={
+	/**
+	 * 游戏初始化方法，开始游戏前必须先调用（图像和音频传全路径）
+	 */
+	 initGame:function(config){
+		config=config?config:{};
+		//游戏图片
+		//游戏图片
+		config.image=config.image?config.image:{};
+		config.image['background'] = config.image['background']?config.image['background']:(basepath+'background.jpg');	
+		config.image['gold'] = config.image['gold']?config.image['gold']:(basepath+'gold.png');	
+		config.image['apple'] = config.image['apple']?config.image['apple']:(basepath+'apple.png');	
+		config.image['cactus'] = config.image['cactus']?config.image['cactus']:(basepath+'cactus.png');	
+		config.image['head'] = config.image['head']?config.image['head']:(basepath+'head.png');	
+		config.image['head2'] = config.image['head2']?config.image['head2']:(basepath+'head2.png');	
+		config.image['head3'] = config.image['head3']?config.image['head3']:(basepath+'head3.png');	
+		config.image['body'] = config.image['body']?config.image['body']:(basepath+'body.png');	
+		config.image['body1'] = config.image['body1']?config.image['body1']:(basepath+'body1.png');	
+		config.image['body2'] = config.image['body2']?config.image['body2']:(basepath+'body2.png');	
+		config.image['body3'] = config.image['body3']?config.image['body3']:(basepath+'body3.png');	
+		config.image['body4'] = config.image['body4']?config.image['body4']:(basepath+'body4.png');	
+		config.image['tail'] = config.image['tail']?config.image['tail']:(basepath+'tail.png');	
+		config.image['box'] = config.image['box']?config.image['box']:(basepath+'box.png');	
+		config.image['score10'] = config.image['score10']?config.image['score10']:(basepath+'score10.png');	
+		config.image['score20'] = config.image['score20']?config.image['score20']:(basepath+'score20.png');	
+		config.image['score30'] = config.image['score30']?config.image['score30']:(basepath+'score30.png');	
+		config.image['guide'] = config.image['guide']?config.image['guide']:(basepath+'guide.png');	
+		//游戏顶部信息
+		config.topInfo=config.topInfo?config.topInfo:{};
+		config.topInfo['textColor']=config.topInfo['textColor']?config.topInfo['textColor']:'white';
+		config.topInfo['headerBorderColor']=config.topInfo['headerBorderColor']?config.topInfo['headerBorderColor']:'transparent';
+		config.topInfo['backgroundColor']=config.topInfo['backgroundColor']?config.topInfo['backgroundColor']:'black';
+		config.topInfo['backgroundColorOpacity']=config.topInfo['backgroundColorOpacity']?config.topInfo['backgroundColorOpacity']:'0.28';
+		//游戏音效
+		config.music=config.music?config.music:{};
+		config.music['eat_apple']=config.music['eat_apple']?config.music['eat_apple']:(basepath+'eat_apple.mp3');
+		config.music['eat_gold']=config.music['eat_gold']?config.music['eat_gold']:(basepath+'eat_gold.mp3');
+		config.music['snake_die']=config.music['snake_die']?config.music['snake_die']:(basepath+'snake_die.mp3');
+ 		config.music['backgroundMusic']=config.music['backgroundMusic']?config.music['backgroundMusic']:(basepath+'bg_music.mp3');
+// 		backgroundMusic= $('#bgMusic');
+// 		backgroundMusic.attr('src',config.music['backgroundMusic']);
+// 		backgroundMusic=backgroundMusic[0];
+		//游戏时间
+		config.gameTime=config.gameTime?config.gameTime:500;
+		//微信头像
+		config.headerimg=config.headerimg?config.headerimg:('./image/manImg.jpg');	
+		gameConfig=config;
+		//初始化变量
+		imgData = new Array(  
+			{name:"background",path:gameConfig.image['background']},	
+			{name:"gold",path:gameConfig.image['gold']},	
+			{name:"apple",path:gameConfig.image['apple']},	
+			{name:"cactus",path:gameConfig.image['cactus']},	
+			{name:"head",path:gameConfig.image['head']},	
+			{name:"head2",path:gameConfig.image['head2']},	
+			{name:"head3",path:gameConfig.image['head3']},
+			{name:"body",path:gameConfig.image['body']},
+			{name:"body1",path:gameConfig.image['body1']},
+			{name:"body2",path:gameConfig.image['body2']},
+			{name:"body3",path:gameConfig.image['body3']},
+			{name:"body4",path:gameConfig.image['body4']},
+			{name:"tail",path:gameConfig.image['tail']},
+			{name:"box",path:gameConfig.image['box']},
+			{name:"score10",path:gameConfig.image['score10']},
+			{name:"score20",path:gameConfig.image['score20']},
+			{name:"score30",path:gameConfig.image['score30']},
+			{name:"guide",path:gameConfig.image['guide']}
+		);
+		gameTime=gameConfig.gameTime;
+		currTime=gameConfig.gameTime;
+	},
+	
+	/**
+	 * 开始游戏，游戏结束后会回调gameOverCallback，并带上游戏得分作为回调参数
+	 */
+	startGame:function(gameOverCallback){
+		overCallback=gameOverCallback;
+		LGlobal.preventDefault=true;
+		
+		$("body").on("touchstart",function(e){
+			var e  = e || window.event;
+			e.preventDefault();
+		})
+
+		//初始化顶部信息
+		var $gameTopInfo=$('#gameTopInfo');
+		$gameTopInfo.css('color',gameConfig.topInfo['textColor']);
+		$gameTopInfo.find('.bottomColor').css({opacity:''+gameConfig.topInfo['backgroundColorOpacity'],backgroundColor:''+gameConfig.topInfo['backgroundColor']});
+		$gameTopInfo.find('.headerWrap .headerborder').css('border','0.1rem solid '+gameConfig.topInfo['headerBorderColor']);
+		$gameTopInfo.show();
+		/* $currTime.html(currTime.toFixed(2)); */
+		$gameTopInfo.find('.headerWrap .headerborder img').attr('src',gameConfig.headerimg);
+		
+		init(300,"game-box",640,640,main);
+	},
+	
+	/**
+	 * 重新开始游戏，游戏结束后会回调gameOverCallback，并带上游戏得分作为回调参数
+	 */
+	restartGame:function(gameOverCallback){
+		overCallback=gameOverCallback;
+		//TODO
+	}
+
+}
+
+var gameConfig={},backgroundMusic,isOpenMusic=true,overCallback,imgData,hasGameGuide;
+
+//是否播放音频
+var cookieMusicOffKey='musicOff';
+var cookieGuideKey='gameGuide';
+
+hasGameGuide=!$.cookie(cookieGuideKey) || $.cookie(cookieGuideKey)=='false';
+
+var $music=$('#gameTopInfo .music');
+
+isOpenMusic=!$.cookie(cookieMusicOffKey)||$.cookie(cookieMusicOffKey)=='false';
+
+if(!isOpenMusic){
+	$music.addClass('off');
+	backgroundMusic.pause(); 
+}
+$music.on('touchend',function(){
+	isOpenMusic=!isOpenMusic;
+	$music.toggleClass('off');
+	if(isOpenMusic){
+		$.cookie(cookieMusicOffKey,false,{expires:100});
+		backgroundMusic.play(); 
+	}else{
+		$.cookie(cookieMusicOffKey,true,{expires:100});
+		backgroundMusic.pause(); 
+	}
+});
+
+
+if(!hasGameGuide){
+	$("#gameGuide").hide();
+}
+
+
+
+</script>
+<script type="text/javascript" src="./js/snake/snake.js?v=v1023"></script>
+	<script type="text/javascript">
+	try{
+		gamepage.initGame();
+		gamepage.startGame(function(score){
+			alert('游戏得分'+score+"\n"+"更多H5资源->http://www.h5street.com");
+		});		
+	}catch(e){
+		//alert(e);
+	}
+	</script>
+<div class="asd" style="position: absolute; top: 50px; color: #fff; font-size: 3rem;">
+
+</div>
+</body>
+</html>

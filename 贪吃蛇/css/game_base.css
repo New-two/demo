@@ -1,0 +1,123 @@
+@-webkit-keyframes rotate{
+	from{-webkit-transform:rotate(0deg)}
+	to{-webkit-transform:rotate(360deg)}
+}
+@keyframes rotate{
+	from{-webkit-transform:rotate(0deg)}
+	to{-webkit-transform:rotate(360deg)}
+}
+@-webkit-keyframes timeout{
+	0%{-webkit-transform:scale3d(1,1,1)}
+	10%,20%{-webkit-transform:scale3d(.9,.9,.9) rotate3d(0,0,1,-3deg)}
+	30%,50%,70%,90%{-webkit-transform:scale3d(1.1,1.1,1.1) rotate3d(0,0,1,3deg)}
+	40%,60%,80%{-webkit-transform:scale3d(1.1,1.1,1.1) rotate3d(0,0,1,-3deg)}
+	100%{-webkit-transform:scale3d(1,1,1)}
+}	
+@keyframes timeout{
+	0%{transform:scale3d(1,1,1)}
+	10%,20%{transform:scale3d(.9,.9,.9) rotate3d(0,0,1,-3deg)}
+	30%,50%,70%,90%{transform:scale3d(1.1,1.1,1.1) rotate3d(0,0,1,3deg)}
+	40%,60%,80%{transform:scale3d(1.1,1.1,1.1) rotate3d(0,0,1,-3deg)}
+	100%{transform:scale3d(1,1,1)}
+}
+body{
+	margin:0;
+	padding:0;
+	font-family: "Microsoft YaHei","微软雅黑";
+}
+#gameContainer #gameMain,#gameMain>div{
+	overflow:hidden!important;
+}
+#gameContainer #gameTopInfo{
+	position: absolute;
+	z-index: 9;
+	top: 0;
+	width: 100%;
+	height: 2.6rem;
+	text-align: center;
+	color: rgb(231, 138, 33);
+	font-size: 0.7rem;
+	line-height: 1.1rem;
+	font-weight:bold;
+	display:none;
+}
+#gameContainer #gameTopInfo .timeWrap{
+	display:inline-block;
+	margin-top: 0.1rem;
+}
+#gameContainer #gameTopInfo .timeWrap strong{
+	font-size: 1rem;
+}
+#gameContainer #gameTopInfo .bottomColor{
+	position: absolute;
+	z-index:-1;
+	width:100%;
+	height:100%;
+	opacity:1;
+	background:white;
+	top:0;		
+}
+#gameContainer #gameTopInfo .headerWrap{
+    position: absolute;
+	top: 0.17rem;
+	left: 0.7rem;	
+}
+#gameContainer #gameTopInfo .headerWrap .headerborder{
+    width: 2.1rem;
+    height: 2.1rem;
+	border-radius: 100%;
+	border:0.1rem solid white;
+	float: left;
+}
+#gameContainer #gameTopInfo .headerWrap .headerborder>img{
+    width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+#gameContainer #gameTopInfo .headerWrap strong{
+    display: inline-block;
+	vertical-align: -0.66rem;
+	font-size: 0.8rem;
+	margin-left: 0.3rem;
+	font-weight: normal;	
+}
+#gameContainer #gameTopInfo .music{
+    width: 1.6rem;
+    position: absolute;
+    top: 0.48rem;
+    right: 0.7rem;
+}
+#gameContainer #gameTopInfo .music img{
+	width:100%;
+	height:100%;
+	display:none;
+}
+#gameContainer #gameTopInfo .music img.onImg{
+	display:block;		
+	-webkit-animation:rotate 1.8s linear infinite;
+	animation:rotate 1.8s linear infinite;
+}
+#gameContainer #gameTopInfo .music.off img.onImg{
+	display:none;		
+}
+#gameContainer #gameTopInfo .music.off img.offImg{
+	display:block;		
+}
+#gameContainer #gameTimeout{
+    position: absolute;
+    width: 7rem;
+    height: 8.06rem;
+    left: 50%;
+    top: 50%;
+    margin-left: -3.5rem;
+    margin-top: -4.2rem;
+	display:none;
+}
+#gameContainer #gameTimeout.rock{
+	-webkit-animation: timeout .6s ease 0s infinite forwards;
+    animation: timeout .6s ease 0s infinite forwards;	
+}
+#gameContainer #gameTimeout>img{
+	width:100%;
+	height:100%;
+}
