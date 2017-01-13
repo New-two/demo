@@ -176,33 +176,33 @@ function random_coordinates(img_width,img_height){
 }
 
 //物品类
-function Items(img_name){
+// function Items(img_name){
 
-	base(this,LSprite,[]);
-	var self = this;
+// 	base(this,LSprite,[]);
+// 	var self = this;
 
-	self.bitmap = new LBitmap(new LBitmapData(imglist[img_name],0,0));
-	self.addChild(self.bitmap);
+// 	self.bitmap = new LBitmap(new LBitmapData(imglist[img_name],0,0));
+// 	self.addChild(self.bitmap);
 
-	// 把坐标存入总坐标数组
-	random_coordinates(self.bitmap.getWidth(),self.bitmap.getHeight());
+// 	// 把坐标存入总坐标数组
+// 	random_coordinates(self.bitmap.getWidth(),self.bitmap.getHeight());
 
-	self.x = Arr[0];
-	self.y = Arr[1];
+// 	self.x = Arr[0];
+// 	self.y = Arr[1];
 
-	// var rect1 = new LSprite();
-//    rect1.graphics.drawRect(1,"#FF0000",[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
-//    self.addChild(rect1);
+// 	// var rect1 = new LSprite();
+// //    rect1.graphics.drawRect(1,"#FF0000",[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
+// //    self.addChild(rect1);
 
-	// 设置碰撞形状和范围
-	self.addShape(LShape.RECT,[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
+// 	// 设置碰撞形状和范围
+// 	self.addShape(LShape.RECT,[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
 
-	// 把坐标存入总坐标数组
-	coordinates_arr.push(Arr);
+// 	// 把坐标存入总坐标数组
+// 	coordinates_arr.push(Arr);
 
-	// 加入背景里
-	backLayer.addChild(self);
-}
+// 	// 加入背景里
+// 	backLayer.addChild(self);
+// }
 
 
 //蛇类
@@ -298,7 +298,6 @@ var Snake = {
 		if(co == 37){
 			for(var i=0; i<obstacles_arr.length; i++){
 				if(snake_arr[0].x-35==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
-					console.log("撞到障碍物")
 					if(isOpenMusic){
 						try{
 							snake_die.play();
@@ -699,7 +698,10 @@ document.onkeydown = function(event){
 	}
  
 }
-
+function sum() {
+	var point = (Math.floor(Math.random()*3)+1)*10;
+	$("#totalScore").text(parseInt($("#totalScore").text())+point);
+}
 //手机滑屏事件
 $("#game-box,#gameGuide").on("swipeLeft",function(){
 	// 第一次开始移动蛇
@@ -725,16 +727,20 @@ window.addEventListener("deviceorientation",orientationHandler , false);
         var data=Math.round(e.alpha);
         switch(data){ 
             case 90: move_start();
+            	sum();
 				co = co!=39 ? 37 : co;
             break;//上 
 
             case 180: move_start();
+            	sum();
 				co = co!=37 ? 39 : co;
             break;//右 
             case 270: move_start();
+           		sum();
             	co = co!=40 ? 38 : co;
             break;//下 
             case 360 : move_start();
+           				sum();
 				co = co!=38 ? 40 : co;
             break;//左 
         }
