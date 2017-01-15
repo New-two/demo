@@ -682,6 +682,60 @@ function move_start(){
 	}
 }
 
+function addpush(){
+	// 生成新的身体
+	var new_body = new LSprite();
+	backLayer.addChild(new_body);
+	var body_bitmap = new LBitmap(new LBitmapData(imglist["body"],0,0));
+	new_body.bitmap = body_bitmap;
+	new_body.bitmap.alpha = 0;
+	// new_body.bitmap.rotate = snake_arr[0].bitmap.rotate;
+	new_body.addChild(body_bitmap);
+
+	// 身体弯曲部分图片
+	new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+	new_body.bitmap1.alpha = 0;
+	new_body.addChild(new_body.bitmap1);
+
+	new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+	new_body.bitmap2.alpha = 0;
+	new_body.addChild(new_body.bitmap2);
+
+	new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+	new_body.bitmap3.alpha = 0;
+	new_body.addChild(new_body.bitmap3);
+
+	new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+	new_body.bitmap4.alpha = 0;
+	new_body.addChild(new_body.bitmap4);
+
+
+	if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+	}
+	if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+	}
+	if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+	}
+	if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+	}
+
+	new_body.x = snake_arr[snake_arr.length-1].x;
+	new_body.y = snake_arr[snake_arr.length-1].y;
+	new_body.bitmap.rotate = snake_arr[snake_arr.length-1].bitmap.rotate;
+	// new_body.x = apple_arr[j].x;
+	// new_body.y = apple_arr[j].y;
+	// new_body.x = -CANVAS_W;
+	// new_body.y = -CANVAS_H;
+	
+	
+	// 插入蛇的数组
+	snake_arr.splice(snake_arr.length-1,0,new_body);
+	return snake_arr;
+}
 //加入键盘事件，用方向键来控制蛇前进的方向 
 document.onkeydown = function(event){
 
@@ -706,6 +760,7 @@ function sum() {
 $("#game-box,#gameGuide").on("swipeLeft",function(){
 	// 第一次开始移动蛇
 	move_start();
+	addpush();
 	co = co!=39 ? 37 : co;
 }).on("swipeRight",function(){
 	// 第一次开始移动蛇
@@ -727,20 +782,21 @@ window.addEventListener("deviceorientation",orientationHandler , false);
         var data=Math.round(e.alpha);
         switch(data){ 
             case 90: move_start();
-            	sum();
+            
+            	addpush();
 				co = co!=39 ? 37 : co;
             break;//上 
 
             case 180: move_start();
-            	sum();
+            	addpush();
 				co = co!=37 ? 39 : co;
             break;//右 
             case 270: move_start();
-           		sum();
+           		addpush();
             	co = co!=40 ? 38 : co;
             break;//下 
             case 360 : move_start();
-           				sum();
+           				addpush();
 				co = co!=38 ? 40 : co;
             break;//左 
         }
