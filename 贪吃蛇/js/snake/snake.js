@@ -929,8 +929,15 @@ $("#game-box,#gameGuide").on("swipeLeft",function(){
 	move_start();
 	co = co!=38 ? 40 : co;
 })
-//手机旋转事件
+//全局方向对象
+var dction= {
+	left:false,
+	top:false,
+	right:false,
+	bottom:false
+}
 
+//手机旋转事件
 function sum() {
 		// 生成新的身体
 	var new_body = new LSprite();
@@ -990,25 +997,60 @@ function sum() {
 window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
-        switch(data){ 
-            case 90: move_start();
-            	sum();
-				co = co!=39 ? 37 : co;
-            break;//上 
-
-            case 180: move_start();
-            	sum();
-				co = co!=37 ? 39 : co;
-            break;//右 
-            case 270: move_start();
-           		sum();
-            	co = co!=40 ? 38 : co;
-            break;//下 
-            case 360 : move_start();
-           				sum();
-				co = co!=38 ? 40 : co;
-            break;//左 
+        if(data==90&&dction.right==false){
+        	dction.right=true;
+        	move_start();
+        	sum();
+			co = co!=39 ? 37 : co;
+			dection.bottom=false;
+			dection.left=false;
+			dction.top==false;
+        }else
+        if(data==180&&dction.bottom==false){
+        	dection.bottom=true;
+        	move_start();
+        	sum();
+			co = co!=37 ? 39 : co;
+			dection.right=false;
+			dection.left=false;
+			dction.top==false;
+        }else
+        if(data==270&&dction.left==false){
+        	dection.left=true;
+			move_start();
+       		sum();
+        	co = co!=40 ? 38 : co;
+        	dection.bottom=false;
+			dection.right=false;
+			dction.top==false;
+        }else
+        if(data==360&&dction.top==false){
+        	move_start();
+       		sum();
+			co = co!=38 ? 40 : co;
+			dection.bottom=false;
+			dection.left=false;
+			dction.right==false;
         }
+    //     switch(data){ 
+    //         case 90: move_start();
+    //         	sum();
+				// co = co!=39 ? 37 : co;
+    //         break;//上 
+
+    //         case 180: move_start();
+    //         	sum();
+				// co = co!=37 ? 39 : co;
+    //         break;//右 
+    //         case 270: move_start();
+    //        		sum();
+    //         	co = co!=40 ? 38 : co;
+    //         break;//下 
+    //         case 360 : move_start();
+    //        				sum();
+				// co = co!=38 ? 40 : co;
+    //         break;//左 
+    //     }
 		document.querySelector('.asd').innerHTML=data;
     } 
 

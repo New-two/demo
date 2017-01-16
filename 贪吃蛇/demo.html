@@ -120,13 +120,13 @@ window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
         switch(data){ 
-            case 90: seep-=50;
+            case 90:seep-=20;
             break;//上 
-            case 180: seep-=50;
+            case 180:seep-=20;
             break;//右 
-            case 270: seep-=50;
+            case 270:seep-=20;
             break;//下 
-            case 360 :seep-=50;
+            case 360:seep-=20;
             break;//左 
         }
     } 
