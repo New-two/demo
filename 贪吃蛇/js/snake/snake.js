@@ -998,6 +998,7 @@ window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
         if(data==90&&dction.right==false){
+        	alert(1)
         	dction.right=true;
         	move_start();
         	sum();
