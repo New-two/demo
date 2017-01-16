@@ -176,33 +176,33 @@ function random_coordinates(img_width,img_height){
 }
 
 //物品类
-// function Items(img_name){
+function Items(img_name){
 
-// 	base(this,LSprite,[]);
-// 	var self = this;
+	base(this,LSprite,[]);
+	var self = this;
 
-// 	self.bitmap = new LBitmap(new LBitmapData(imglist[img_name],0,0));
-// 	self.addChild(self.bitmap);
+	self.bitmap = new LBitmap(new LBitmapData(imglist[img_name],0,0));
+	self.addChild(self.bitmap);
 
-// 	// 把坐标存入总坐标数组
-// 	random_coordinates(self.bitmap.getWidth(),self.bitmap.getHeight());
+	// 把坐标存入总坐标数组
+	random_coordinates(self.bitmap.getWidth(),self.bitmap.getHeight());
 
-// 	self.x = Arr[0];
-// 	self.y = Arr[1];
+	self.x = Arr[0];
+	self.y = Arr[1];
 
-// 	// var rect1 = new LSprite();
-// //    rect1.graphics.drawRect(1,"#FF0000",[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
-// //    self.addChild(rect1);
+	// var rect1 = new LSprite();
+//    rect1.graphics.drawRect(1,"#FF0000",[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
+//    self.addChild(rect1);
 
-// 	// 设置碰撞形状和范围
-// 	self.addShape(LShape.RECT,[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
+	// 设置碰撞形状和范围
+	self.addShape(LShape.RECT,[5, 5, self.bitmap.getWidth()-10, self.bitmap.getHeight()-10]);
 
-// 	// 把坐标存入总坐标数组
-// 	coordinates_arr.push(Arr);
+	// 把坐标存入总坐标数组
+	coordinates_arr.push(Arr);
 
-// 	// 加入背景里
-// 	backLayer.addChild(self);
-// }
+	// 加入背景里
+	backLayer.addChild(self);
+}
 
 
 //蛇类
@@ -265,30 +265,30 @@ var Snake = {
 		// 随机出口位置
 		switch(Math.floor(Math.random()*2)+1){
 			// 37 left - 38 up - 39 right - 40 down
-			case 1: //左出口
-				co = 39;
-				Snake.born("head",0,8*35,0);
-				Snake.born("body",-35,8*35,0);
-				Snake.born("tail",-35*2,8*35,0);
-				break;
-			// case 2: //上出口
-			// 	co = 40;
-			// 	Snake.born("head",8*35,0,90);
-			// 	Snake.born("body",8*35,-35,90);
-			// 	Snake.born("tail",8*35,-35*2,90);
+			// case 1: //左出口
+			// 	co = 39;
+			// 	Snake.born("head",0,8*35,0);
+			// 	Snake.born("body",-35,8*35,0);
+			// 	Snake.born("tail",-35*2,8*35,0);
 			// 	break;
-			// case 3: //下出口
-			// 	co = 38;
-			// 	Snake.born("head",8*35,CANVAS_H-backLayer.y*2-35,-90);
-			// 	Snake.born("body",8*35,CANVAS_H-backLayer.y*2,-90);
-			// 	Snake.born("tail",8*35,CANVAS_H-backLayer.y*2+35,-90);
-			// 	break;
-			case 2: //右出口
-				co = 37;
-				Snake.born("head",CANVAS_H-backLayer.y*2-35,8*35,-180);
-				Snake.born("body",CANVAS_H-backLayer.y*2,8*35,-180);
-				Snake.born("tail",CANVAS_H-backLayer.y*2+35,8*35,-180);
+			case 1: //上出口
+				co = 40;
+				Snake.born("head",8*35,0,90);
+				Snake.born("body",8*35,-35,90);
+				Snake.born("tail",8*35,-35*2,90);
 				break;
+			case 2: //下出口
+				co = 38;
+				Snake.born("head",8*35,CANVAS_H-backLayer.y*2-35,-90);
+				Snake.born("body",8*35,CANVAS_H-backLayer.y*2,-90);
+				Snake.born("tail",8*35,CANVAS_H-backLayer.y*2+35,-90);
+				break;
+			// case 2: //右出口
+			// 	co = 37;
+			// 	Snake.born("head",CANVAS_H-backLayer.y*2-35,8*35,-180);
+			// 	Snake.born("body",CANVAS_H-backLayer.y*2,8*35,-180);
+			// 	Snake.born("tail",CANVAS_H-backLayer.y*2+35,8*35,-180);
+			// 	break;
 		}
 		
 	},
@@ -296,6 +296,7 @@ var Snake = {
 	move: function(){ // 移动
 
 		if(co == 37){
+			Snake.eat();
 			for(var i=0; i<obstacles_arr.length; i++){
 				if(snake_arr[0].x-35==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
 					if(isOpenMusic){
@@ -479,10 +480,10 @@ var Snake = {
 		find_bending();	
 
 		// 蛇是否晕了
-		// Snake.die();
+		Snake.die();
 
 		// 蛇吃东西
-		// Snake.eat();
+		Snake.eat();
 
 		// 更新总坐标数组
 		updata_arr();
@@ -490,7 +491,215 @@ var Snake = {
 		// 操作参数更改
 		is_click = true;
 	},
+	eat: function(){ // 吃东西
+		// 判断蛇头是否跟苹果碰撞
+		for(var j=0; j<apple_arr.length; j++){
+				var point = (Math.floor(Math.random()*3)+1)*10;
+				$("#totalScore").text(parseInt($("#totalScore").text())+point);
+	
+				// 更换蛇头的状态图片
+				snake_arr[0].bitmap.alpha = 0;
+				snake_arr[0].bitmap3.alpha = 1;
 
+				// 显示分数图片
+				// var point_img = new LSprite();
+				// backLayer.addChild(point_img);
+				// console.log(backLayer);
+				// if(point == 10){
+				// 	point_img.addChild(new LBitmap(new LBitmapData(imglist["score10"],0,0)));
+				// }else if(point == 20){
+				// 	point_img.addChild(new LBitmap(new LBitmapData(imglist["score20"],0,0)));
+				// }else if(point == 30){
+				// 	point_img.addChild(new LBitmap(new LBitmapData(imglist["score30"],0,0)));
+				// }
+				
+				// point_img.x = apple_arr[j].x;
+				// point_img.y = apple_arr[j].y;
+
+				// backLayer.setChildIndex(point_img,backLayer.numChildren-1);
+				// LTweenLite.to(point_img,.5,{
+				// 	y: point_img.y-50,
+				// 	alpha: 0,
+				// 	onComplete: function(){
+				// 		point_img.remove(); 
+				// 	}
+				// })
+				
+
+				// 生成新的身体
+				var new_body = new LSprite();
+				backLayer.addChild(new_body);
+				var body_bitmap = new LBitmap(new LBitmapData(imglist["body"],0,0));
+				new_body.bitmap = body_bitmap;
+				
+				new_body.bitmap.alpha = 0;
+				// new_body.bitmap.rotate = snake_arr[0].bitmap.rotate;
+				new_body.addChild(body_bitmap);
+
+				// 身体弯曲部分图片
+				new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+				new_body.bitmap1.alpha = 0;
+				new_body.addChild(new_body.bitmap1);
+
+				new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+				new_body.bitmap2.alpha = 0;
+				new_body.addChild(new_body.bitmap2);
+
+				new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+				new_body.bitmap3.alpha = 0;
+				new_body.addChild(new_body.bitmap3);
+
+				new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+				new_body.bitmap4.alpha = 0;
+				new_body.addChild(new_body.bitmap4);
+
+
+				if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+				}
+				if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+				}
+				if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+				}
+				if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+				}
+
+				new_body.x = snake_arr[snake_arr.length-1].x;
+				new_body.y = snake_arr[snake_arr.length-1].y;
+				new_body.bitmap.rotate = snake_arr[snake_arr.length-1].bitmap.rotate;
+				// new_body.x = apple_arr[j].x;
+				// new_body.y = apple_arr[j].y;
+				// new_body.x = -CANVAS_W;
+				// new_body.y = -CANVAS_H;
+				
+				
+				// 插入蛇的数组
+				snake_arr.splice(snake_arr.length-1,0,new_body);
+
+				// 移除苹果
+				apple_arr[j].remove();
+				apple_arr.splice(j,1);
+
+				break;
+			
+		}
+		
+
+		// 判断蛇头是否跟金币碰撞
+		// for(var k=0; k<gold_arr.length; k++){
+		// 	if(snake_arr[0].hitTestObject(gold_arr[k])){
+
+		// 		console.log("撞到金币")
+		// 		if(isOpenMusic){
+		// 			try{
+		// 				eat_gold.play();
+		// 				console.log(eat_gold.play);
+		// 			}catch(e){
+						
+		// 			}
+					
+		// 		}
+				
+
+		// 		var point = (Math.floor(Math.random()*3)+1)*10;
+		// 		$("#totalScore").text(parseInt($("#totalScore").text())+point);
+
+		// 		// 更换蛇头的状态图片
+		// 		snake_arr[0].bitmap.alpha = 0;
+		// 		snake_arr[0].bitmap3.alpha = 1;
+
+				
+
+		// 		// 显示分数图片
+		// 		var point_img = new LSprite();
+		// 		backLayer.addChild(point_img);
+		// 		if(point == 10){
+		// 			point_img.addChild(new LBitmap(new LBitmapData(imglist["score10"],0,0)));
+		// 		}else if(point == 20){
+		// 			point_img.addChild(new LBitmap(new LBitmapData(imglist["score20"],0,0)));
+		// 		}else if(point == 30){
+		// 			point_img.addChild(new LBitmap(new LBitmapData(imglist["score30"],0,0)));
+		// 		}
+				
+		// 		point_img.x = gold_arr[k].x;
+		// 		point_img.y = gold_arr[k].y;
+		// 		backLayer.setChildIndex(point_img,backLayer.numChildren-1);
+		// 		LTweenLite.to(point_img,.5,{
+		// 			y: point_img.y-50,
+		// 			alpha: 0,
+		// 			onComplete: function(){
+		// 				point_img.remove(); 
+		// 			}
+		// 		})
+
+		// 		// 生成新的身体
+		// 		var new_body = new LSprite();
+		// 		backLayer.addChild(new_body);
+		// 		var body_bitmap = new LBitmap(new LBitmapData(imglist["body"],0,0));
+		// 		new_body.bitmap = body_bitmap;
+		// 		new_body.bitmap.alpha = 0;
+		// 		// new_body.bitmap.rotate = snake_arr[0].bitmap.rotate;
+		// 		new_body.addChild(body_bitmap);
+
+		// 		// 身体弯曲部分图片
+		// 		new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+		// 		new_body.bitmap1.alpha = 0;
+		// 		new_body.addChild(new_body.bitmap1);
+
+		// 		new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+		// 		new_body.bitmap2.alpha = 0;
+		// 		new_body.addChild(new_body.bitmap2);
+
+		// 		new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+		// 		new_body.bitmap3.alpha = 0;
+		// 		new_body.addChild(new_body.bitmap3);
+
+		// 		new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+		// 		new_body.bitmap4.alpha = 0;
+		// 		new_body.addChild(new_body.bitmap4);
+
+
+		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+		// 		}
+		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+		// 		}
+		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+		// 		}
+		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+		// 		}
+
+		// 		new_body.x = snake_arr[snake_arr.length-1].x;
+		// 		new_body.y = snake_arr[snake_arr.length-1].y;
+		// 		new_body.bitmap.rotate = snake_arr[snake_arr.length-1].bitmap.rotate;
+		// 		// new_body.x = apple_arr[j].x;
+		// 		// new_body.y = apple_arr[j].y;
+		// 		// new_body.x = -CANVAS_W;
+		// 		// new_body.y = -CANVAS_H;
+				
+				
+		// 		// 插入蛇的数组
+		// 		snake_arr.splice(snake_arr.length-1,0,new_body);
+				
+		// 		// 移除金币
+		// 		gold_arr[k].remove();
+		// 		gold_arr.splice(k,1);
+
+		// 		break;
+		// 	}
+		// }
+
+		// 设置层级
+		backLayer.setChildIndex(snake_arr[0],backLayer.numChildren-1);
+
+		backLayer.setChildIndex(snake_arr[snake_arr.length-1],backLayer.numChildren-2);
+	},
 	die: function(){ // 游戏是否结束
 
 
@@ -671,7 +880,7 @@ function find_bending(){
 
 //第一次开始移动蛇
 function move_start(){
-	
+	console.log(Snake.eat());
 	if(game_start){
 		 $("#gameGuide").hide();
 		 $.cookie(cookieGuideKey,true);
@@ -681,7 +890,6 @@ function move_start(){
 		game_start = false;
 	}
 }
-
 //加入键盘事件，用方向键来控制蛇前进的方向 
 document.onkeydown = function(event){
 
@@ -698,10 +906,10 @@ document.onkeydown = function(event){
 	}
  
 }
-function sum() {
-	var point = (Math.floor(Math.random()*3)+1)*10;
-	$("#totalScore").text(parseInt($("#totalScore").text())+point);
-}
+
+//方向改变 蛇增长
+
+var num=0;
 //手机滑屏事件
 $("#game-box,#gameGuide").on("swipeLeft",function(){
 	// 第一次开始移动蛇
@@ -710,6 +918,8 @@ $("#game-box,#gameGuide").on("swipeLeft",function(){
 }).on("swipeRight",function(){
 	// 第一次开始移动蛇
 	move_start();
+	num+=1;
+	Snake.eat();
 	co = co!=37 ? 39 : co;
 }).on("swipeUp",function(){
 	// 第一次开始移动蛇
@@ -722,24 +932,36 @@ $("#game-box,#gameGuide").on("swipeLeft",function(){
 })
 //手机旋转事件
 
+function sum() {
+	
+	// 判断蛇头是否跟苹果碰撞
+		
+		num++
+
+			
+}
 window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
         switch(data){ 
             case 90: move_start();
+            	num++;
             	sum();
 				co = co!=39 ? 37 : co;
             break;//上 
 
             case 180: move_start();
+            	num++;
             	sum();
 				co = co!=37 ? 39 : co;
             break;//右 
             case 270: move_start();
+            num++;
            		sum();
             	co = co!=40 ? 38 : co;
             break;//下 
             case 360 : move_start();
+            num++;
            				sum();
 				co = co!=38 ? 40 : co;
             break;//左 
