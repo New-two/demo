@@ -402,7 +402,25 @@ window.gamepage={
 		$gameTopInfo.show();
 		/* $currTime.html(currTime.toFixed(2)); */
 		$gameTopInfo.find('.headerWrap .headerborder img').attr('src',gameConfig.headerimg);
+<<<<<<< HEAD
 		console.log(seep)
+=======
+		window.addEventListener("deviceorientation",orientationHandler , false);
+		var seep=300;
+	    function orientationHandler(e) { //改变蛇方向 
+	        var data=Math.round(e.alpha);
+	        switch(data){ 
+	            case 90: seep-=10;
+	            break;//上 
+	            case 180: seep-=10;
+	            break;//右 
+	            case 270: seep-=10;
+	            break;//下 
+	            case 360 : seep-=10;
+	            break;//左 				
+	        }
+	    } 
+>>>>>>> d97e54a7fcb89ca216d352df7d4155249ae4a21f
 		init(seep,"game-box",640,640,main);
 	},
 	
