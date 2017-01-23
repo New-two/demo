@@ -50,6 +50,8 @@ body{
 	margin: 0 !important;
 	background: url(./image/background.jpg) no-repeat;
 	background-size: cover;
+	position: relative;
+	z-index: 1;
 }
 #game-box,#game-box>div{
 	overflow: hidden !important;
@@ -519,7 +521,7 @@ if(!isOpenMusic){
 			
 	</script>
 	<!-- play页 -->
-<div class="play_box">
+<div class="play_box" style="display: none;">
 	<img class="play_btn" src="image/play_btn1.png" alt="" />
 	<div class="point_btn"></div>
 
@@ -658,14 +660,21 @@ if(!isOpenMusic){
 							var status = $(this).data('loaded') ? 'success' : 'error';
 							if (status == "success") {
 								var v = (parseFloat(++imgNum) / images.length).toFixed(2);
-								$("#loadingNum").html(Math.round(v * 100) + "<sup>%</sup>");
+								$("#loadingNum").html(Math.round(v * 100) );
 							}
 						},
 						all: function () {
 							/*全部加载完成之后的状态你再该干嘛干嘛*/
-							$("#loadingNum ").html("100<sup>%</sup>");
-							$('.loading').hide();
+							$("#loadingNum ").html("100");
+							setTimeout(function(){
+								$('.loading').hide();
+								$('.play_box').css({
+									display:'block'
+								})
+							},3000)
+							
 							//当图片都加载完毕了之后,以下开始播放动画;
+						
 							var oNum = 1;
 							$('.audio')[0].autoplay='autoplay';
 							
