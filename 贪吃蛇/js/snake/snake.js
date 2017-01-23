@@ -862,8 +862,7 @@ function move_start(){
 		game_start = false;
 	}
 }
-<<<<<<< HEAD
-=======
+
 
 function addpush(){
 	// 生成新的身体
@@ -876,19 +875,19 @@ function addpush(){
 	new_body.addChild(body_bitmap);
 
 	// 身体弯曲部分图片
-	new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+	new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap1.alpha = 0;
 	new_body.addChild(new_body.bitmap1);
 
-	new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+	new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap2.alpha = 0;
 	new_body.addChild(new_body.bitmap2);
 
-	new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+	new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap3.alpha = 0;
 	new_body.addChild(new_body.bitmap3);
 
-	new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+	new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap4.alpha = 0;
 	new_body.addChild(new_body.bitmap4);
 
@@ -919,7 +918,6 @@ function addpush(){
 	snake_arr.splice(snake_arr.length-1,0,new_body);
 	return snake_arr;
 }
->>>>>>> d97e54a7fcb89ca216d352df7d4155249ae4a21f
 //加入键盘事件，用方向键来控制蛇前进的方向 
 document.onkeydown = function(event){
 
@@ -1035,7 +1033,6 @@ var hadTp=0;
 window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
-<<<<<<< HEAD
 		
         if(data==90&&dction.right==false){
         	dction.right=true;
@@ -1088,28 +1085,8 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 			dction.bottom=false;
 			dction.left=false;
 			dction.right==false;
-=======
-        switch(data){ 
-            case 90: move_start();
-            
-            	addpush();
-				co = co!=39 ? 37 : co;
-            break;//上 
-
-            case 180: move_start();
-            	addpush();
-				co = co!=37 ? 39 : co;
-            break;//右 
-            case 270: move_start();
-           		addpush();
-            	co = co!=40 ? 38 : co;
-            break;//下 
-            case 360 : move_start();
-           				addpush();
-				co = co!=38 ? 40 : co;
-            break;//左 
->>>>>>> d97e54a7fcb89ca216d352df7d4155249ae4a21f
-        }
+		}
+    
 
     //     switch(data){ 
     //         case 90: move_start();
