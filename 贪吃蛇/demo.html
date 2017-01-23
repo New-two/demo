@@ -57,11 +57,13 @@ body{
 #game-box_canvas{
 	background: url(./image/box.png) no-repeat center;
 	background-size: 95%;
+	width:100% !important;
+	height:100% !important;
 }
 
 #game-box_canvas{
-	margin-top: 4rem !important;
 	background-size: 89%;
+	z-index: 1000;
 }
 
 #gameGuide{
@@ -71,9 +73,20 @@ body{
 	left: 0;
 	right: 0;
 	bottom: 0;
+	text-align: center;
+	line-height: 100%;
 	background-color: rgba(0,0,0,0.7);
+	background:rgba(255, 255, 255, 0.8);
+	font-size: 0.6rem;
+	color:#000;
 }
-
+#gameGuide span{
+	position:absolute;
+	top: 50%;
+	margin-top: -0.5rem;
+	left:50%;
+	margin-left: -6rem;
+}
 #gameGuide img{
     position: absolute;
     top: 8rem;
@@ -81,35 +94,201 @@ body{
     width: 12rem;
     margin-left: -6rem;
 }
+.play_box {
+	width:100%;
+	height:100%;
+	background:url('./image/play.png') no-repeat;
+	position:absolute;
+	background-size:cover ;
+	top: 0;
+	z-index: 99999;
+}
+.play_btn{
+	width:12.45rem;
+	height:4.35rem;
+	background-size: cover;
+	margin:14rem auto 0 ;
+	display:block;
+}
+.point_btn{
+	background:url('./image/play_btn_icon.png') no-repeat;
+	width:1.675rem;
+	height:2.125rem;
+	background-size: cover;
+	margin:0 auto;
+	margin-top: 0.3rem;
+}
+
+.div1,.div2,.div3,.div4,.div5,.div6{
+	position:absolute;
+}
+.div1{
+	top: 9.75rem;
+	right:2rem;
+	color:#038789;
+	font-size: 0.8rem;
+}		
+.div2{
+	top: 11.05rem;
+	left:4rem;
+	color:#2995b6;
+	font-size: 0.8rem;
+}
+.div3{
+	top: 12.35rem;
+	right:5rem;
+	color:#ff3f0f;
+	font-size: 0.8rem;
+	font-family: "04b_08";
+}
+.div4{
+	top: 21.35rem;
+	left:3.5rem;
+	color:#ff3f0f;
+	font-size: 0.8rem;
+}
+.div5{
+	top: 20.85rem;
+	right:1rem;
+	color:#2995b6;
+	font-size: 0.8rem;
+}
+.div6{
+	top: 22.85rem;
+	left:7rem;
+	font-size: 0.6rem;
+	color:#038789;
+}
+.tapImg{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top: 0;
+	z-index: -1;
+	display: none;
+}
+.tapImg div{
+	height:4400%;
+	width:100%;
+	position:absolute;
+	top: 0;
+}
+.tapImg div img{
+	width:100%;
+}
+
+.asd{
+	position: fixed;
+	top: 0;
+	color: #fff;
+	font-size: 2rem;
+	z-index: 99999999999;
+}
+.callBack{
+	width:100%;
+	height:100%;
+	background:url('image/gemeOver.png') no-repeat;
+	position:absolute;
+	background-size:cover;
+	top: 0;
+	z-index: 1000;
+	display: none;
+}
+.tanchuang{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 15.4rem;
+	height: 9.625rem;
+	background:url('image/gemeOvertan.png') no-repeat;
+	background-size:cover;
+	margin-left:-7.7rem;
+	margin-top: -4.8125rem;
+	z-index: 9999999;
+}
+.tanchuang .btn{
+	width: 12rem;
+	height: 2rem;
+	margin: 1rem auto 0;
+}
+.tanchuang .btn .fl{
+	width: 5.3rem;
+	text-align: center;
+	line-height: 2rem;
+	color: #000;
+	float: left;
+	font-size: 0.8rem;
+	text-decoration: none;
+}
+.tanchuang .btn .fr{
+	width: 4.7rem;
+	text-align: center;
+	line-height: 2rem;
+	color: #000;
+	font-size: 0.8rem;
+	float: right;
+	text-decoration: none;
+}
+.tanchuang p{
+	font-size: 0.75rem;
+	width: 12rem;
+	margin: 0 auto;
+	color: #000000;
+	text-align: center;
+	margin-top: 3.5rem;
+}
+.tanchuang p a,i{
+	color: #fff;
+}
+.loading{
+	background:url('image/loading.jpg') no-repeat;
+	background-size:cover;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	z-index: 99999999;
+}
+.cken{
+	width: 3.1rem;
+	height: 5.475rem;
+	margin: 12.075rem auto 0;
+	display: block;
+}
+.loading p{
+	margin: 2rem 0 0 0;
+	text-align: center;
+}
+.music{
+	position:fixed;
+	top: 1rem;
+	right:1rem;
+	width:1.2rem;
+	height:1.2rem;
+	z-index: 99999999999;
+}
 </style>
 
 <div id="gameContainer">
 	<!-- 	时间分数模板 -->
-	<div id="gameTopInfo">
-		<div class="headerWrap">
-			<div class="headerborder"><img src=""></div>
-			<strong id="totalScore">0</strong>
-		</div>
-		<div class="music">
-			<img class="onImg" src="./image/musicOn.png">
-			<img class="offImg" src="./image/musicOff.png">
-		</div>
-		<div class="bottomColor"></div>
-	</div>
+
 	
 	<!-- 	游戏主要部分 -->
 	<div id="game-box"></div>
 	<audio id="backgroundMusic" loop="loop"></audio>
 	
 	<!-- 引导 -->
-	<div id="gameGuide"><img src="./image/guide.png">	</div>
+	<div id="gameGuide"><span>请锁定屏幕自动旋转进行游戏。滑动屏幕继续</span></div>
 		
 		
 </div>
+
+
 <script type="text/javascript" src="./js/lufylegend-1.10.1.min.js?v=v1023"></script>
 <script type="text/javascript" src="./js/snake/zepto.js?v=v1023"></script>
 <script type="text/javascript" src="./js/jquery.cookie.min.js?v=v1023"></script>
 <script type="text/javascript" src="./js/snake/touch-0.2.14.min.js?v=v1023"></script>
+<<script src="jquery.imgpreload.min.js"></script>
 
 <script type="text/javascript">
 var basepath='./image/';
@@ -117,18 +296,19 @@ var basepath='./image/';
 /*********************************对外提供的方法**************************************/
 var seep=300;
 window.addEventListener("deviceorientation",orientationHandler , false);
-    function orientationHandler(e) { //改变蛇方向 
+    function orientationHandler(e) { //改变蛇方向
         var data=Math.round(e.alpha);
         switch(data){ 
-            case 90:seep-=20;
+            case 90:seep-=50;
             break;//上 
-            case 180:seep-=20;
+            case 180:seep-=50;
             break;//右 
-            case 270:seep-=20;
+            case 270:seep-=50;
             break;//下 
-            case 360:seep-=20;
+            case 360:seep-=50;
             break;//左 
         }
+
     } 
 window.gamepage={
 	/**
@@ -237,37 +417,16 @@ window.gamepage={
 }
 
 var gameConfig={},backgroundMusic,isOpenMusic=true,overCallback,imgData,hasGameGuide;
-
+ 
 //是否播放音频
-var cookieMusicOffKey='musicOff';
-var cookieGuideKey='gameGuide';
 
-hasGameGuide=!$.cookie(cookieGuideKey) || $.cookie(cookieGuideKey)=='false';
-
-var $music=$('#gameTopInfo .music');
-
-isOpenMusic=!$.cookie(cookieMusicOffKey)||$.cookie(cookieMusicOffKey)=='false';
 
 if(!isOpenMusic){
 	$music.addClass('off');
 	backgroundMusic.pause(); 
 }
-$music.on('touchend',function(){
-	isOpenMusic=!isOpenMusic;
-	$music.toggleClass('off');
-	if(isOpenMusic){
-		$.cookie(cookieMusicOffKey,false,{expires:100});
-		backgroundMusic.play(); 
-	}else{
-		$.cookie(cookieMusicOffKey,true,{expires:100});
-		backgroundMusic.pause(); 
-	}
-});
 
 
-if(!hasGameGuide){
-	$("#gameGuide").hide();
-}
 
 
 
@@ -277,14 +436,246 @@ if(!hasGameGuide){
 	try{
 		gamepage.initGame();
 		gamepage.startGame(function(score){
-			alert('游戏得分'+score+"\n"+"更多H5资源->http://www.h5street.com");
+			$('.callBack')[0].style.display='block';
+			$('.callBack .btn .fl').on('touchstart',function(){
+				history.go(0)
+			})
 		});		
 	}catch(e){
 		//alert(e);
 	}
+	
 	</script>
-<div class="asd" style="position: absolute; top: 50px; color: #fff; font-size: 3rem;">
+	<!-- play页 -->
+<div class="play_box">
+	<img class="play_btn" src="image/play_btn1.png" alt="" />
+	<div class="point_btn"></div>
 
+	<div class="div1"><i></i>两只狗的生活意见</div>
+	<div class="div2">厄勒克特拉</div>
+	<div class="div3">nimilover</div>
+	<div class="div4">BIGBANG</div>
+	<div class="div5">恋爱的犀牛</div>
+	<div class="div6">一个陌生女人的来信</div>
 </div>
+	<!-- 蛇转动图片切换页 -->
+<div class="tapImg">
+	<div>
+		<img src="image/res/1.jpg" alt="" />
+		<img src="image/res/2.jpg" alt="" />
+		<img src="image/res/3.jpg" alt="" />
+		<img src="image/res/4.jpg" alt="" />
+		<img src="image/res/5.jpg" alt="" />
+		<img src="image/res/6.jpg" alt="" />
+		<img src="image/res/7.jpg" alt="" />
+		<img src="image/res/8.jpg" alt="" />
+		<img src="image/res/9.jpg" alt="" />
+		<img src="image/res/10.jpg" alt="" />
+		<img src="image/res/11.jpg" alt="" />
+		<img src="image/res/12.jpg" alt="" />
+		<img src="image/res/13.jpg" alt="" />
+		<img src="image/res/14.jpg" alt="" />
+		<img src="image/res/15.jpg" alt="" />
+		<img src="image/res/16.jpg" alt="" />
+		<img src="image/res/17.jpg" alt="" />
+		<img src="image/res/18.jpg" alt="" />
+		<img src="image/res/19.jpg" alt="" />
+		<img src="image/res/20.jpg" alt="" />
+		<img src="image/res/21.jpg" alt="" />
+		<img src="image/res/22.jpg" alt="" />
+		<img src="image/res/23.jpg" alt="" />
+		<img src="image/res/24.jpg" alt="" />
+		<img src="image/res/25.jpg" alt="" />
+		<img src="image/res/26.jpg" alt="" />
+		<img src="image/res/27.jpg" alt="" />
+		<img src="image/res/28.jpg" alt="" />
+		<img src="image/res/29.jpg" alt="" />
+		<img src="image/res/30.jpg" alt="" />
+		<img src="image/res/31.jpg" alt="" />
+		<img src="image/res/32.jpg" alt="" />
+		<img src="image/res/33.jpg" alt="" />
+		<img src="image/res/34.jpg" alt="" />
+		<img src="image/res/35.jpg" alt="" />
+		<img src="image/res/36.jpg" alt="" />
+		<img src="image/res/37.jpg" alt="" />
+		<img src="image/res/38.jpg" alt="" />
+		<img src="image/res/39.jpg" alt="" />
+		<img src="image/res/40.jpg" alt="" />
+		<img src="image/res/41.jpg" alt="" />
+		<img src="image/res/42.jpg" alt="" />
+		<img src="image/res/43.jpg" alt="" />
+		<img src="image/res/44.jpg" alt="" />
+	</div>
+</div>
+<div class="callBack">
+	<div class="tanchuang">
+		<p>很遗憾，你败在了<a href="#">《音乐之声》</a>手上
+			共转动<i>15</i>次，再接再厉喔！</p>
+		<div class="btn">
+			<a class="fl" href="javascript:;">卷土重来</a>
+			<a class="fr" href="javascript:;">邀请好友</a>
+		</div>
+	</div>
+</div>
+	<!-- loading 页 -->
+<div class="loading">
+	<img class="cken" src="image/cken1.png" alt=""/>
+	<p>loading <i id="loadingNum">0</i>%</p>
+</div>
+<div class="asd"></div>
+<script>
+	$(document).ready(function () {
+		document.deepCss = function (who, css) {
+			if (!who || !who.style) return '';
+			var sty = css.replace(/\-([a-z])/g, function (a, b) {
+				return b.toUpperCase();
+			});
+			if (who.currentStyle) {
+				return who.style[sty] || who.currentStyle[sty] || '';
+			}
+			var dv = document.defaultView || window;
+			return who.style[sty] ||
+					dv.getComputedStyle(who, "").getPropertyValue(css) || '';
+		};
+
+		Array.prototype.indexOf = Array.prototype.indexOf ||
+				function (what, index) {
+					index = index || 0;
+					var L = this.length;
+					while (index < L) {
+						if (this[index] === what) return index;
+						++index;
+					}
+					return -1;
+				};
+
+		function getallBgimages() {
+			//ar dom = document.getElementsByTagName("div");
+			//console.log( Array.prototype.concat.apply([],dom).slice(1) )
+			var url, B = [], A = document.getElementsByTagName('*');
+			// A = B.concat.apply([],A).slice(0);  这里做了一个兼容IE6 7 8 的方法;
+			A = B.concat.apply([], A).slice(0);
+
+			while (A.length) {
+				url = document.deepCss(A.shift(), 'background-image');
+				if (url) url = /url\(['"]?([^")]+)/.exec(url) || [];
+				url = url[1];
+				if (url && B.indexOf(url) == -1) B[B.length] = url;
+			}
+			return B;
+		}
+
+		function preLoadImg() {
+			//第一种方式：通过dom方法获取页面中的所有img，包括<img>标签和css中的background-image
+			//get all imgs those tag is <img>
+			var imgs = document.images;
+			for (var i = 0; i < imgs.length; i++) {
+				images.push(imgs[i].src);
+			}
+			//get all images in style
+			var cssImages = getallBgimages();
+			for (var j = 0; j < cssImages.length; j++) {
+				images.push(cssImages[j]);
+			}
+
+			/*这里是真正的图片预加载 preload*/
+			$.imgpreload(images,
+					{
+						each: function () {
+							/*做加载的时候进行调整*/
+							var status = $(this).data('loaded') ? 'success' : 'error';
+							if (status == "success") {
+								var v = (parseFloat(++imgNum) / images.length).toFixed(2);
+								$("#loadingNum").html(Math.round(v * 100) + "<sup>%</sup>");
+							}
+						},
+						all: function () {
+							/*全部加载完成之后的状态你再该干嘛干嘛*/
+							$("#loadingNum ").html("100<sup>%</sup>");
+							$('.loading').hide();
+							//当图片都加载完毕了之后,以下开始播放动画;
+							var oNum = 1;
+							$('.audio')[0].autoplay='autoplay';
+							var oPlay=document.querySelector('.play_btn');
+							var num=1;
+							var time=null;
+							var bok=true;
+							$('#dddd').on('touchstart',function(){
+								var audio = $(".audio")[0];  
+								if(bok){
+									audio.pause();
+									$('#dddd')[0].src=('image/off.png');
+									bok=false;
+								}else{
+									audio.play();
+									$('#dddd')[0].src=('image/on.png');
+									bok=true;
+								}
+							})
+							clearInterval(time);
+							setInterval(function(){
+								oPlay.src='./image/play_btn'+num+'.png';
+								num++;
+								if(num==3){
+									num=1;
+								}
+								$('.point_btn').animate({
+									marginTop:'0.8rem'
+								}, 300);
+								setTimeout(function(){
+									$('.point_btn').animate({
+										marginTop:'0.3rem'
+									}, 300)
+								},300);
+								// if(0.8rem==0.8rem){
+								// 	alert(1)
+								// }
+							}, 500);
+							oPlay.addEventListener('touchend',function(){
+								$('.audio')[0].src='image/start2.mp3';
+								$('.tapImg').css({
+									display: 'block'
+								});
+								$('.div1').animate({
+									right:'-300px'
+								}, 500);
+								$('.div3').animate({
+									right:'-300px'
+								}, 500);
+								$('.div5').animate({
+									right:'-300px'
+								}, 500);
+								$('.div2').animate({
+									left:'-300px'
+								}, 500);
+								$('.div4').animate({
+									left:'-300px'
+								}, 500);
+								$('.div6').animate({
+									left:'-300px'
+								}, 500);
+								setTimeout(function(){
+									$('.play_box').css({display:'none'})
+								},1000)
+							},false);
+							var aImg=document.querySelectorAll('.tapImg div img');
+
+							var oImgPar= document.querySelector('#gameGuide').clientHeight;
+							for(var i=0; i<aImg.length; i++){
+								aImg[i].style.height=oImgPar+'px';
+							}
+						}
+					});
+		}
+
+		var imgNum = 0;
+		var images = [];
+		preLoadImg();
+	});
+
+
+</script>
+<audio class="audio" src="image/start1.mp3" loop="loop" ></audio>
+<img src="image/on.png"  class="music" id="dddd" alt="" />
 </body>
 </html>

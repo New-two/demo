@@ -50,7 +50,7 @@ var co = 39;
 //游戏是否开始标志
 var game_start = true;
 //速度
-var snakeSpeed=35;
+var snakeSpeed=17;
 
 
 
@@ -74,33 +74,7 @@ function main(){
 
  // 加载音效
  
- backgroundMusic =$('#backgroundMusic')[0];
- backgroundMusic.src=gameConfig.music['backgroundMusic'];
- if(isOpenMusic){
-	 backgroundMusic.play();
-	 document.addEventListener("WeixinJSBridgeReady", function () {
-	     WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
-	     	if(isOpenMusic){
-	     		backgroundMusic.play();
-	     	}else{
-	     		 backgroundMusic.pause();
-	     	 }
-	     });
-	 }, false);		 
- } else{
-	 backgroundMusic.pause();
- }
- 
- eat_apple = new LSound();
- eat_apple.load(gameConfig.music["eat_apple"]);
 
-
- eat_gold = new LSound();
- eat_gold.load(gameConfig.music["eat_gold"]);
-
-
- snake_die = new LSound();
- snake_die.load(gameConfig.music["snake_die"]);
  
 
  // 加载
@@ -114,8 +88,8 @@ function gameInit(result){
 	imglist = result; 
 
 	// 显示背景图
-	backLayer.x = 40;
-	backLayer.y = 40;
+	backLayer.x = 0;
+	backLayer.y = 0;
 	// backLayer.graphics.drawRect(1,"#ffffff",[0,0,CANVAS_W-backLayer.x*2,CANVAS_H-backLayer.y*2],true,"#FFF0F0");
 
 	// 生成蛇
@@ -143,7 +117,7 @@ function gameInit(result){
 	})
 
 	// 画方格
-	// for(var i=35; i<CANVAS_W-backLayer.x*2; i+=35){
+	// for(var i=17; i<CANVAS_W-backLayer.x*2; i+=17){
 	// 	backLayer.graphics.drawLine(1,"black",[0,i,CANVAS_W-backLayer.x*2,i]);
 	// 	backLayer.graphics.drawLine(1,"black",[i,0,i,CANVAS_W-backLayer.x*2]);
 	// }
@@ -235,19 +209,19 @@ var Snake = {
 
 		if(img == "body"){
 			// 蛇身体弯曲的部分
-			snake_sprite.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+			snake_sprite.bitmap1 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 			snake_sprite.bitmap1.alpha = 0;
 			snake_sprite.addChild(snake_sprite.bitmap1);
 
-			snake_sprite.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+			snake_sprite.bitmap2 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 			snake_sprite.bitmap2.alpha = 0;
 			snake_sprite.addChild(snake_sprite.bitmap2);
 
-			snake_sprite.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+			snake_sprite.bitmap3 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 			snake_sprite.bitmap3.alpha = 0;
 			snake_sprite.addChild(snake_sprite.bitmap3);
 
-			snake_sprite.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+			snake_sprite.bitmap4 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 			snake_sprite.bitmap4.alpha = 0;
 			snake_sprite.addChild(snake_sprite.bitmap4);
 		}
@@ -263,31 +237,31 @@ var Snake = {
 
 	Init: function(){ // 初始化
 		// 随机出口位置
-		switch(Math.floor(Math.random()*2)+1){
+		switch(Math.floor(Math.random()*1)+1){
 			// 37 left - 38 up - 39 right - 40 down
 			// case 1: //左出口
 			// 	co = 39;
-			// 	Snake.born("head",0,8*35,0);
-			// 	Snake.born("body",-35,8*35,0);
-			// 	Snake.born("tail",-35*2,8*35,0);
+			// 	Snake.born("head",0,8*17,0);
+			// 	Snake.born("body",-17,8*17,0);
+			// 	Snake.born("tail",-17*2,8*17,0);
 			// 	break;
 			case 1: //上出口
 				co = 40;
-				Snake.born("head",8*35,0,90);
-				Snake.born("body",8*35,-35,90);
-				Snake.born("tail",8*35,-35*2,90);
+				Snake.born("head",19*17,0,90);
+				Snake.born("body",19*17,-17,90);
+				Snake.born("tail",19*17,-17*2,90);
 				break;
-			case 2: //下出口
-				co = 38;
-				Snake.born("head",8*35,CANVAS_H-backLayer.y*2-35,-90);
-				Snake.born("body",8*35,CANVAS_H-backLayer.y*2,-90);
-				Snake.born("tail",8*35,CANVAS_H-backLayer.y*2+35,-90);
-				break;
+			// case 2: //下出口
+			// 	co = 38;
+			// 	Snake.born("head",8*17,CANVAS_H-backLayer.y*2-17,-90);
+			// 	Snake.born("body",8*17,CANVAS_H-backLayer.y*2,-90);
+			// 	Snake.born("tail",8*17,CANVAS_H-backLayer.y*2+17,-90);
+			// 	break;
 			// case 2: //右出口
 			// 	co = 37;
-			// 	Snake.born("head",CANVAS_H-backLayer.y*2-35,8*35,-180);
-			// 	Snake.born("body",CANVAS_H-backLayer.y*2,8*35,-180);
-			// 	Snake.born("tail",CANVAS_H-backLayer.y*2+35,8*35,-180);
+			// 	Snake.born("head",CANVAS_H-backLayer.y*2-17,8*17,-180);
+			// 	Snake.born("body",CANVAS_H-backLayer.y*2,8*17,-180);
+			// 	Snake.born("tail",CANVAS_H-backLayer.y*2+17,8*17,-180);
 			// 	break;
 		}
 		
@@ -298,7 +272,7 @@ var Snake = {
 		if(co == 37){
 			Snake.eat();
 			for(var i=0; i<obstacles_arr.length; i++){
-				if(snake_arr[0].x-35==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
+				if(snake_arr[0].x-17==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
 					if(isOpenMusic){
 						try{
 							snake_die.play();
@@ -329,7 +303,7 @@ var Snake = {
 	    if(co == 38){
 
 	    	for(var i=0; i<obstacles_arr.length; i++){
-				if(snake_arr[0].y-35==obstacles_arr[i].y && snake_arr[0].x==obstacles_arr[i].x){
+				if(snake_arr[0].y-17==obstacles_arr[i].y && snake_arr[0].x==obstacles_arr[i].x){
 					console.log("撞到障碍物")
 					if(isOpenMusic){
 						try{
@@ -361,7 +335,7 @@ var Snake = {
 	    if(co == 39){
 
 	    	for(var i=0; i<obstacles_arr.length; i++){
-				if(snake_arr[0].x+35==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
+				if(snake_arr[0].x+17==obstacles_arr[i].x && snake_arr[0].y==obstacles_arr[i].y){
 					console.log("撞到障碍物")
 					if(isOpenMusic){
 						try{
@@ -394,7 +368,7 @@ var Snake = {
 	    if(co == 40){
 
 	    	for(var i=0; i<obstacles_arr.length; i++){
-				if(snake_arr[0].y+35==obstacles_arr[i].y && snake_arr[0].x==obstacles_arr[i].x){
+				if(snake_arr[0].y+17==obstacles_arr[i].y && snake_arr[0].x==obstacles_arr[i].x){
 					console.log("撞到障碍物")
 					if(isOpenMusic){
 						try{
@@ -448,30 +422,30 @@ var Snake = {
 		// 37 left - 38 up - 39 right - 40 down
 		if(co == 37){
 			
-			if(snake_arr[0].x-35 < 0){
+			if(snake_arr[0].x-17 < 0){
 	    		snake_arr[0].x = CANVAS_W - backLayer.x*2;
 	    	}
 	    	// snake_arr[0].x -= snakeSpeed*LGlobal.deltaTime;
-			snake_arr[0].x -= 35;
+			snake_arr[0].x -= 17;
 
 		}else if(co == 38){
-			if(snake_arr[0].y-35 < 0){
+			if(snake_arr[0].y-17 < 0){
 	    		snake_arr[0].y = CANVAS_H - backLayer.y*2;
 	    	}
 			// snake_arr[0].y -= snakeSpeed*LGlobal.deltaTime;
-			snake_arr[0].y -= 35;
+			snake_arr[0].y -= 17;
 		}else if(co == 39){
-			if(snake_arr[0].x+35 >= CANVAS_W - backLayer.x*2){
-	    		snake_arr[0].x = -35;
+			if(snake_arr[0].x+17 >= CANVAS_W - backLayer.x*2){
+	    		snake_arr[0].x = -17;
 	    	}
 			// snake_arr[0].x += snakeSpeed*LGlobal.deltaTime;
-			snake_arr[0].x += 35;
+			snake_arr[0].x += 17;
 		}else if(co == 40){
-			if(snake_arr[0].y+35 >= CANVAS_H - backLayer.y*2){
-	    		snake_arr[0].y = -35;
+			if(snake_arr[0].y+17 >= CANVAS_H - backLayer.y*2){
+	    		snake_arr[0].y = -17;
 	    	}
 			// snake_arr[0].y += snakeSpeed*LGlobal.deltaTime;
-			snake_arr[0].y += 35;
+			snake_arr[0].y += 17;
 		}
 
 		
@@ -537,34 +511,34 @@ var Snake = {
 				new_body.addChild(body_bitmap);
 
 				// 身体弯曲部分图片
-				new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+				new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 				new_body.bitmap1.alpha = 0;
 				new_body.addChild(new_body.bitmap1);
 
-				new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+				new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 				new_body.bitmap2.alpha = 0;
 				new_body.addChild(new_body.bitmap2);
 
-				new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+				new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 				new_body.bitmap3.alpha = 0;
 				new_body.addChild(new_body.bitmap3);
 
-				new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+				new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 				new_body.bitmap4.alpha = 0;
 				new_body.addChild(new_body.bitmap4);
 
 
 				if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
-					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+17;
 				}
 				if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
-					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+17;
 				}
 				if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
-					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-17;
 				}
 				if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
-					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+					snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-17;
 				}
 
 				new_body.x = snake_arr[snake_arr.length-1].x;
@@ -663,16 +637,16 @@ var Snake = {
 
 
 		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
-		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+17;
 		// 		}
 		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
-		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+17;
 		// 		}
 		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
-		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-17;
 		// 		}
 		// 		if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
-		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+		// 			snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-17;
 		// 		}
 
 		// 		new_body.x = snake_arr[snake_arr.length-1].x;
@@ -762,7 +736,7 @@ var Snake = {
 }
 
 function callback(){
-	 backgroundMusic.pause();
+	 //backgroundMusic.pause();
 	//传分数
 	if(overCallback&&typeof overCallback=='function'){					
 	
@@ -802,7 +776,7 @@ function find_bending(){
 
 				snake_arr[i+1].bitmap.alpha = 0;
 
-				if(Math.abs(snake_arr[i].x - snake_arr[i+2].x) == 35 && Math.abs(snake_arr[i].y - snake_arr[i+2].y) == 35){
+				if(Math.abs(snake_arr[i].x - snake_arr[i+2].x) == 17 && Math.abs(snake_arr[i].y - snake_arr[i+2].y) == 17){
 					// 上右
 					if(snake_arr[i].x < snake_arr[i+2].x && snake_arr[i].y < snake_arr[i+2].y && snake_arr[i].x == snake_arr[i+1].x || snake_arr[i].x > snake_arr[i+2].x && snake_arr[i].y > snake_arr[i+2].y && snake_arr[i].y == snake_arr[i+1].y){
 		
@@ -828,9 +802,9 @@ function find_bending(){
 
 					}
 				}
-				if(Math.abs(snake_arr[i].x - snake_arr[i+2].x) != 35 || Math.abs(snake_arr[i].y - snake_arr[i+2].y) != 35){
+				if(Math.abs(snake_arr[i].x - snake_arr[i+2].x) != 17 || Math.abs(snake_arr[i].y - snake_arr[i+2].y) != 17){
 					// 上下
-					if(snake_arr[i].y + snake_arr[i+2].y + 35 == 560){
+					if(snake_arr[i].y + snake_arr[i+2].y + 17 == 560){
 						// 上右
 						if(snake_arr[i].x < snake_arr[i+2].x && snake_arr[i].y > snake_arr[i+2].y && snake_arr[i].x == snake_arr[i+1].x || snake_arr[i].x > snake_arr[i+2].x && snake_arr[i].y < snake_arr[i+2].y && snake_arr[i].y == snake_arr[i+1].y){
 							snake_arr[i+1].bitmap4.alpha = 1;
@@ -882,7 +856,6 @@ function find_bending(){
 function move_start(){
 	if(game_start){
 		 $("#gameGuide").hide();
-		 $.cookie(cookieGuideKey,true);
 		// 绑定循环事件
 		backLayer.addEventListener(LEvent.ENTER_FRAME,Snake.move);
 		
@@ -914,6 +887,10 @@ $("#game-box,#gameGuide").on("swipeLeft",function(){
 	// 第一次开始移动蛇
 	move_start();
 	co = co!=39 ? 37 : co;
+	hadTp-=oHeight;
+	$('.tapImg div').animate({
+		top:hadTp+'px'
+	},500);
 }).on("swipeRight",function(){
 	// 第一次开始移动蛇
 	move_start();
@@ -949,34 +926,34 @@ function sum() {
 	// new_body.bitmap.rotate = snake_arr[0].bitmap.rotate;
 	new_body.addChild(body_bitmap);
 	
-	new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body1"],0,0));
+	new_body.bitmap1 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap1.alpha = 0;
 	new_body.addChild(new_body.bitmap1);
 
-	new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body2"],0,0));
+	new_body.bitmap2 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap2.alpha = 0;
 	new_body.addChild(new_body.bitmap2);
 
-	new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body3"],0,0));
+	new_body.bitmap3 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap3.alpha = 0;
 	new_body.addChild(new_body.bitmap3);
 
-	new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body4"],0,0));
+	new_body.bitmap4 = new LBitmap(new LBitmapData(imglist["body"],0,0));
 	new_body.bitmap4.alpha = 0;
 	new_body.addChild(new_body.bitmap4);
 
 
 	if(snake_arr[snake_arr.length-1].bitmap.rotate==37){
-		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+35;
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x+17;
 	}
 	if(snake_arr[snake_arr.length-1].bitmap.rotate==38){
-		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+35;
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y+17;
 	}
 	if(snake_arr[snake_arr.length-1].bitmap.rotate==39){
-		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-35;
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].x-17;
 	}
 	if(snake_arr[snake_arr.length-1].bitmap.rotate==40){
-		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-35;
+		snake_arr[snake_arr.length-1].x = snake_arr[snake_arr.length-1].y-17;
 	}
 
 	new_body.x = snake_arr[snake_arr.length-1].x;
@@ -994,45 +971,65 @@ function sum() {
 
 			
 }
+var oHeight=$(window).height();
+var hadTp=0;
 window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
+		
         if(data==90&&dction.right==false){
-        	alert(1)
         	dction.right=true;
         	move_start();
         	sum();
 			co = co!=39 ? 37 : co;
-			dection.bottom=false;
-			dection.left=false;
+			hadTp-=oHeight;
+			$('.tapImg div').animate({
+				top:hadTp+'px'
+			},500);
+			dction.bottom=false;
+			dction.left=false;
 			dction.top==false;
         }else
-        if(data==180&&dction.bottom==false){
-        	dection.bottom=true;
+        if(data==270&&dction.bottom==false){
+			dction.bottom=true;
+			hadTp-=oHeight;
         	move_start();
         	sum();
+        	$('.tapImg div').animate({
+				top:hadTp+'px'
+			},500);
 			co = co!=37 ? 39 : co;
-			dection.right=false;
-			dection.left=false;
+			dction.right=false;
+			dction.left=false;
 			dction.top==false;
         }else
-        if(data==270&&dction.left==false){
-        	dection.left=true;
+        if(data==360&&dction.left==false){
+			dction.left=true;
 			move_start();
        		sum();
+			hadTp-=oHeight;
+			$('.tapImg div').animate({
+				top:hadTp+'px'
+			},500);
         	co = co!=40 ? 38 : co;
-        	dection.bottom=false;
-			dection.right=false;
+			dction.bottom=false;
+			dction.right=false;
 			dction.top==false;
         }else
-        if(data==360&&dction.top==false){
+        if(data==180&&dction.top==false){
+			dction.top=true;
         	move_start();
        		sum();
+			hadTp-=oHeight;
+			$('.tapImg div').animate({
+				top:hadTp+'px'
+			},500);
 			co = co!=38 ? 40 : co;
-			dection.bottom=false;
-			dection.left=false;
+			dction.bottom=false;
+			dction.left=false;
 			dction.right==false;
         }
+
     //     switch(data){ 
     //         case 90: move_start();
     //         	sum();
@@ -1052,6 +1049,6 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 				// co = co!=38 ? 40 : co;
     //         break;//左 
     //     }
-		document.querySelector('.asd').innerHTML=data;
+    	document.querySelector('.asd').innerHTML=data;
     } 
 
