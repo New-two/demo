@@ -280,7 +280,7 @@ body{
 	<audio id="backgroundMusic" loop="loop"></audio>
 	
 	<!-- 引导 -->
-	<div id="gameGuide"><span>请锁定屏幕自动旋转进行游戏。滑动屏幕继续</span></div>
+	<div id="gameGuide" style="display: none;"><span>请锁定屏幕自动旋转进行游戏。滑动屏幕继续</span></div>
 		
 		
 </div>
@@ -671,6 +671,7 @@ if(!isOpenMusic){
 								$('.play_box').css({
 									display:'block'
 								})
+								$('.gameGuide').show();
 							},3000)
 							
 							//当图片都加载完毕了之后,以下开始播放动画;
