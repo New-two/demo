@@ -97,6 +97,11 @@ body{
 	-webkit-animation:rotate 1.8s linear infinite;
 	animation:rotate 1.8s linear infinite;
 }
+.music{
+    display:block;      
+    -webkit-animation:rotate 1.8s linear infinite;
+    animation:rotate 1.8s linear infinite;
+}
 #gameContainer #gameTopInfo .music.off img.onImg{
 	display:none;		
 }
