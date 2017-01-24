@@ -169,6 +169,7 @@ body{
 	top: 0;
 	z-index: -1;
 	display: none;
+	overflow:hidden;
 }
 .tapImg div{
 	height:4400%;
@@ -276,7 +277,7 @@ body{
 }
 .dongshe{
 	padding-top: 0.8rem;
-	background:url('image/dong.gif') no-repeat;
+	background:url('image/dong1.gif') no-repeat;
 	background-size: 100%;
 	margin:11.2rem auto 0;
 	width:5.35rem;
@@ -294,7 +295,17 @@ body{
 	
 	<!-- 引导 -->
 	<div id="gameGuide" style="display:none;"><span>请锁定屏幕自动旋转进行游戏。滑动屏幕继续</span></div>
-		
+<div class="callBack">
+	<div class="tanchuang">
+		<p>很遗憾，你败在了<a href="#">《音乐之声》</a>手上
+			共转动<i id="acv">15</i>次，再接再厉喔！</p>
+		<div class="btn">
+			<a class="fl tanchuangBtn" href="javascript:;">卷土重来</a>
+			<a class="fl aaaBtn" href="javascript:;">携友来战</a>
+			<a class="fl" href="javascript:;">奖励基金</a>
+		</div>
+	</div>
+</div>
 		
 </div>
 
@@ -309,22 +320,22 @@ body{
 var basepath='./image/';
 
 /*********************************对外提供的方法**************************************/
-var seep=2000;
-window.addEventListener("deviceorientation",orientationHandler , false);
-    function orientationHandler(e) { //改变蛇方向
-        var data=Math.round(e.alpha);
-        switch(data){ 
-            case 90:seep-=50;
-            break;//上 
-            case 180:seep-=50;
-            break;//右 
-            case 270:seep-=50;
-            break;//下 
-            case 360:seep-=50;
-            break;//左 
-        }
+// var seep=2000;
+// window.addEventListener("deviceorientation",orientationHandler , false);
+//     function orientationHandler(e) { //改变蛇方向
+//         var data=Math.round(e.alpha);
+//         switch(data){ 
+//             case 90:seep-=50;
+//             break;//上 
+//             case 180:seep-=50;
+//             break;//右 
+//             case 270:seep-=50;
+//             break;//下 
+//             case 360:seep-=50;
+//             break;//左 
+//         }
 
-    } 
+//     } 
 window.gamepage={
 	/**
 	 * 游戏初始化方法，开始游戏前必须先调用（图像和音频传全路径）
@@ -404,35 +415,66 @@ window.gamepage={
 		overCallback=gameOverCallback;
 		LGlobal.preventDefault=true;
 		
-		$("body").on("touchstart",function(e){
-			var e  = e || window.event;
-			e.preventDefault();
-		})
+		// $("body").on("touchstart",function(e){
+		// 	var e  = e || window.event;
+		// 	e.preventDefault();
+		// })
 
 		//初始化顶部信息
-		var $gameTopInfo=$('#gameTopInfo');
-		$gameTopInfo.css('color',gameConfig.topInfo['textColor']);
-		$gameTopInfo.find('.bottomColor').css({opacity:''+gameConfig.topInfo['backgroundColorOpacity'],backgroundColor:''+gameConfig.topInfo['backgroundColor']});
-		$gameTopInfo.find('.headerWrap .headerborder').css('border','0.1rem solid '+gameConfig.topInfo['headerBorderColor']);
-		$gameTopInfo.show();
-		/* $currTime.html(currTime.toFixed(2)); */
-		$gameTopInfo.find('.headerWrap .headerborder img').attr('src',gameConfig.headerimg);
+		// var $gameTopInfo=$('#gameTopInfo');
+		// $gameTopInfo.css('color',gameConfig.topInfo['textColor']);
+		// $gameTopInfo.find('.bottomColor').css({opacity:''+gameConfig.topInfo['backgroundColorOpacity'],backgroundColor:''+gameConfig.topInfo['backgroundColor']});
+		// $gameTopInfo.find('.headerWrap .headerborder').css('border','0.1rem solid '+gameConfig.topInfo['headerBorderColor']);
+		// $gameTopInfo.show();
+		// /* $currTime.html(currTime.toFixed(2)); */
+		// $gameTopInfo.find('.headerWrap .headerborder img').attr('src',gameConfig.headerimg);
 
 		window.addEventListener("deviceorientation",orientationHandler , false);
 		var seep=300;
-	    function orientationHandler(e) { //改变蛇方向 
-	        var data=Math.round(e.alpha);
-	        switch(data){ 
-	            case 90: seep-=20;
-	            break;//上 
-	            case 180: seep-=20;
-	            break;//右 
-	            case 270: seep-=20;
-	            break;//下 
-	            case 360 : seep-=20;
-	            break;//左 				
-	        }
-	    } 
+		var acv=0;
+	   
+    function orientationHandler(e) { //改变蛇方向 
+        var data=Math.round(e.alpha);
+       
+		// var top=0,left=0,right=0,bottom=0;
+
+        if(data==90&&dction.left==false){
+        	dction.left=true;
+        	seep-=20;
+        	// move_start();
+        	acv+=1;
+			dction.bottom=false;
+			dction.right=false;
+			dction.top==false;
+        }else
+        if(data==180&&dction.bottom==false){
+        	seep-=20;
+        	acv+=1;
+			dction.bottom=true;
+			dction.right=false;
+			dction.left=false;
+			dction.top==false;
+        }else
+        if(data==270&&dction.right==false){
+        	seep-=20;
+        	acv+=1;
+			dction.right=true;
+			dction.bottom=false;
+			dction.left=false;
+			dction.top==false;
+        }else
+        if(data==360&&dction.top==false){
+        	seep-=20;
+        	acv+=1;
+			dction.top=true;
+			dction.bottom=false;
+			dction.left=false;
+			dction.right==false;
+		}
+		document.querySelector('.tanchuang i').innerHTML=acv;
+    } 
+		// var oAcv=document.querySelector('.tanchuang i');
+		
 		init(seep,"game-box",640,640,main);
 	},
 	
@@ -476,7 +518,7 @@ if(!isOpenMusic){
 		//alert(e);
 	}
 	window.onload=function(){
-			
+	
 		var oPlay=document.querySelector('.play_btn');
 		var num=1;
 		var time=null;
@@ -597,17 +639,7 @@ if(!isOpenMusic){
 		<img src="image/res/44.jpg" alt="" />
 	</div>
 </div>
-<div class="callBack">
-	<div class="tanchuang">
-		<p>很遗憾，你败在了<a href="#">《音乐之声》</a>手上
-			共转动<i>15</i>次，再接再厉喔！</p>
-		<div class="btn">
-			<a class="fl tanchuangBtn" href="javascript:;">卷土重来</a>
-			<a class="fl aaaBtn" href="javascript:;">携友来战</a>
-			<a class="fl" href="javascript:;">奖励基金</a>
-		</div>
-	</div>
-</div>
+
 	<!-- loading 页 -->
 <div class="loading">
 	<div class="dongshe">
@@ -751,6 +783,8 @@ if(!isOpenMusic){
 		var images = [];
 		preLoadImg();
 	});
+
+
 
 
 </script>

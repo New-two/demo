@@ -457,7 +457,7 @@ var Snake = {
 		Snake.die();
 
 		// 蛇吃东西
-		Snake.eat();
+		// Snake.eat();
 
 		// 更新总坐标数组
 		updata_arr();
@@ -852,29 +852,32 @@ function addpush(){
 	return snake_arr;
 }
 //加入键盘事件，用方向键来控制蛇前进的方向 
-document.onkeydown = function(event){
+// document.onkeydown = function(event){
 
-	// 第一次开始移动蛇
-	move_start();
+// 	// 第一次开始移动蛇
+// 	move_start();
 
-	if(is_click){
+// 	if(is_click){
 
-		is_click = false;
+// 		is_click = false;
 
-		// 37 left - 38 up - 39 right - 40 down
-	    co = event.keyCode>=37 && event.keyCode<=40 && (Math.abs(event.keyCode-co) != 2) ? event.keyCode : co;
+// 		// 37 left - 38 up - 39 right - 40 down
+// 	    co = event.keyCode>=37 && event.keyCode<=40 && (Math.abs(event.keyCode-co) != 2) ? event.keyCode : co;
 	  
-	}
+// 	}
  
-}
+// }
 
 //方向改变 蛇增长
 
 var num=0;
 //手机滑屏事件
 $('#gameGuide').on('touchend',function(){
-	move_start();
-	Snake.eat();
+	setTimeout(function(){
+		move_start();
+	}, 500);
+	
+	// Snake.eat();
 })
 // $("#game-box,#gameGuide").on("swipeLeft",function(){
 // 	// 第一次开始移动蛇
@@ -970,11 +973,13 @@ var hadTp=0;
 window.addEventListener("deviceorientation",orientationHandler , false);
     function orientationHandler(e) { //改变蛇方向 
         var data=Math.round(e.alpha);
+        var acv=0;
 		// var top=0,left=0,right=0,bottom=0;
 
         if(data==90&&dction.left==false){
         	dction.left=true;
-        	move_start();
+        	// move_start();
+        	acv+=1;
         	sum();
 			co = co!=39 ? 37 : co;
 			hadTp-=oHeight;
@@ -986,9 +991,10 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 			dction.top==false;
         }else
         if(data==180&&dction.bottom==false){
+        	acv+=1;
 			dction.bottom=true;
 			hadTp-=oHeight;
-        	move_start();
+        	// move_start();
         	sum();
         	$('.tapImg div').animate({
 				top:hadTp+'px'
@@ -999,8 +1005,9 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 			dction.top==false;
         }else
         if(data==270&&dction.right==false){
+        	acv+=1;
 			dction.right=true;
-			move_start();
+			// move_start();
        		sum();
 			hadTp-=oHeight;
 			$('.tapImg div').animate({
@@ -1012,8 +1019,9 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 			dction.top==false;
         }else
         if(data==360&&dction.top==false){
+        	acv+=1;
 			dction.top=true;
-        	move_start();
+        	// move_start();
        		sum();
 			hadTp-=oHeight;
 			$('.tapImg div').animate({
@@ -1024,27 +1032,9 @@ window.addEventListener("deviceorientation",orientationHandler , false);
 			dction.left=false;
 			dction.right==false;
 		}
-    
 
-    //     switch(data){ 
-    //         case 90: move_start();
-    //         	sum();
-				// co = co!=39 ? 37 : co;
-    //         break;//上 
-
-    //         case 180: move_start();
-    //         	sum();
-				// co = co!=37 ? 39 : co;
-    //         break;//右 
-    //         case 270: move_start();
-    //        		sum();
-    //         	co = co!=40 ? 38 : co;
-    //         break;//下 
-    //         case 360 : move_start();
-    //        				sum();
-				// co = co!=38 ? 40 : co;
-    //         break;//左 
-    //     }
+		  
+		   
     	document.querySelector('.asd').innerHTML=data;
     } 
 
